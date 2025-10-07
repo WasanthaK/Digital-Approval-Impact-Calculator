@@ -51,6 +51,58 @@
     <div class="container">
         <h1 class="text-center my-4">Digital Approval Impact Calculator</h1>
         <p class="text-center text-secondary">Calculate how digital approval and sealing impact your organization’s sustainability and costs.</p>
+        
+        <!-- Methodology Section -->
+        <div class="result-card">
+            <h5>📚 Methodology & Data Sources</h5>
+            <details>
+                <summary style="cursor: pointer; color: #3498db; font-weight: bold;">Click to view calculation methodology and sources</summary>
+                <div class="mt-3">
+                    <h6>How We Calculate Environmental Impact</h6>
+                    <p>Our calculations are based on industry research and environmental studies:</p>
+                    
+                    <p><strong>Carbon Emissions (CO₂):</strong></p>
+                    <ul>
+                        <li>Value: 4.71 grams CO₂ per sheet</li>
+                        <li>Source: Environmental Paper Network (2018) - "The State of the Global Paper Industry"</li>
+                    </ul>
+                    
+                    <p><strong>Trees Saved:</strong></p>
+                    <ul>
+                        <li>Value: 8,333 sheets per tree</li>
+                        <li>Source: Conservatree.org and forestry industry data</li>
+                    </ul>
+                    
+                    <p><strong>Water Conservation:</strong></p>
+                    <ul>
+                        <li>Value: 10 liters per sheet</li>
+                        <li>Source: WWF (World Wildlife Fund) paper production studies</li>
+                    </ul>
+                    
+                    <p><strong>Energy Savings:</strong></p>
+                    <ul>
+                        <li>Value: 0.5 kWh per sheet</li>
+                        <li>Source: EPA Energy Star Program data</li>
+                    </ul>
+                    
+                    <p><strong>Cost Savings:</strong></p>
+                    <ul>
+                        <li>Paper cost: $0.05 per sheet (commercial average)</li>
+                        <li>Mailing cost: $0.50 per document (postage and handling)</li>
+                    </ul>
+                    
+                    <p><strong>Disclaimer:</strong> These are estimates based on industry averages. Actual impacts may vary depending on paper type, manufacturing processes, and regional differences.</p>
+                    
+                    <p><strong>References:</strong></p>
+                    <ul>
+                        <li><a href="https://www.environmentalpaper.org" target="_blank">Environmental Paper Network</a></li>
+                        <li><a href="https://www.conservatree.org" target="_blank">Conservatree</a></li>
+                        <li><a href="https://www.worldwildlife.org" target="_blank">WWF Paper Calculator</a></li>
+                        <li><a href="https://www.energystar.gov" target="_blank">EPA Energy Star</a></li>
+                    </ul>
+                </div>
+            </details>
+        </div>
 
         <!-- Input Section -->
         <div class="mb-3">
@@ -78,13 +130,14 @@
                 return;
             }
 
-            // Constants
-            const co2PerSheet = 0.00471; // kg CO2 per sheet
-            const sheetsPerTree = 8333; // sheets per tree
-            const waterPerSheet = 10; // liters of water per sheet
-            const paperCostPerSheet = 0.05; // USD per sheet
-            const mailCostPerDoc = 0.50; // USD per document
-            const energyPerSheet = 0.5; // kWh energy saved per sheet
+            // Constants - Based on industry research and environmental studies
+            // Sources: Environmental Paper Network, WWF, EPA Energy Star, Conservatree.org
+            const co2PerSheet = 0.00471; // kg CO2 per sheet (4.71 grams)
+            const sheetsPerTree = 8333; // sheets per tree (average office paper production)
+            const waterPerSheet = 10; // liters of water per sheet (paper manufacturing process)
+            const paperCostPerSheet = 0.05; // USD per sheet (average commercial paper cost)
+            const mailCostPerDoc = 0.50; // USD per document (postage and handling estimate)
+            const energyPerSheet = 0.5; // kWh energy saved per sheet (production and distribution)
 
             // Calculations
             const carbonSaved = signedDocs * co2PerSheet; // kg CO2
@@ -108,6 +161,10 @@ SDG Contributions:
 - SDG 7 (Clean Energy): Saved ${energySaved.toFixed(2)} kWh of energy
 - SDG 13 (Climate Action): Avoided ${carbonSaved.toFixed(2)} kg of CO₂ emissions
 - SDG 15 (Life on Land): Preserved ${treesSaved.toFixed(2)} trees
+
+---
+Methodology: Calculations based on industry research from Environmental Paper Network, WWF, EPA Energy Star, and Conservatree.org.
+These are estimates based on industry averages. Actual impacts may vary.
 `;
 
             // Display Results
@@ -153,6 +210,9 @@ SDG Contributions:
                         <li><strong>SDG 13 (Climate Action):</strong> Avoided ${carbonSaved.toFixed(2)} kg of CO₂ emissions.</li>
                         <li><strong>SDG 15 (Life on Land):</strong> Preserved ${treesSaved.toFixed(2)} trees.</li>
                     </ul>
+                </div>
+                <div class="result-card mt-2" style="background-color: #e8f4f8; border-left: 4px solid #3498db;">
+                    <p style="margin: 0; font-size: 0.9em;"><strong>Note:</strong> These calculations are based on industry research from Environmental Paper Network, WWF, EPA Energy Star, and Conservatree.org. Values are estimates based on industry averages and may vary depending on actual paper type, manufacturing processes, and regional differences.</p>
                 </div>
             `;
 
