@@ -34,12 +34,23 @@ After this PR is merged, the following branches can be safely deleted:
 
 ## How to Delete Branches
 
-### Via GitHub Web Interface:
+### Option 1: Use the Automated Script (Recommended)
+Run the included cleanup script:
+```bash
+./cleanup-branches.sh
+```
+The script will:
+- Prompt for confirmation
+- Delete both copilot branches
+- Clean up local references
+- Show you the final branch list
+
+### Option 2: Via GitHub Web Interface
 1. Go to https://github.com/WasanthaK/Digital-Approval-Impact-Calculator/branches
 2. Find each branch listed above
 3. Click the delete (trash can) icon next to each branch
 
-### Via Git Command Line:
+### Option 3: Via Git Command Line (Manual)
 ```bash
 # Delete remote branches
 git push origin --delete copilot/fix-de758515-2233-410a-b2b2-b21c1b87e309
@@ -65,5 +76,7 @@ Current repository contains:
 - `requirements.txt` - Python dependencies
 - `.gitignore` - Git ignore rules
 - `.devcontainer/` - Dev Container configuration
+- `BRANCH_CLEANUP.md` - This documentation file
+- `cleanup-branches.sh` - Automated cleanup script
 
 All files are up to date and contain the latest merged changes.
