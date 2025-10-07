@@ -5,55 +5,265 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Approval Impact Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.1.1/docx.min.js"></script>
     <style>
-        body {
-            background-color: #f4f4f9;
-            padding: 20px;
+        * {
+            scroll-behavior: smooth;
         }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
+        .card-modern {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        
+        .btn-calculate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
         .result-icon img {
             width: 80px;
             height: 80px;
             margin-bottom: 10px;
+            transition: transform 0.3s ease;
         }
+        
+        .result-icon:hover img {
+            transform: scale(1.1);
+        }
+        
+        .result-icon h4 {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .result-icon p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
         .result-card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             margin-top: 20px;
+            border-left: 4px solid #667eea;
         }
-        h4, h5, p {
+        
+        h3 {
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        h4, h5 {
             margin: 0;
             padding: 5px 0;
+            font-weight: 600;
+            color: #2d3748;
         }
-        #copyBtn, #downloadImageBtn, #downloadMarkdownBtn, #downloadDocxBtn {
-            margin-top: 10px;
-            margin-right: 5px;
-            padding: 10px 15px;
+        
+        p {
+            margin: 0;
+            padding: 5px 0;
+            color: #4a5568;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-action {
+            padding: 12px 24px;
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        #copyBtn { background-color: #3498db; }
-        #downloadImageBtn { background-color: #2ecc71; }
-        #downloadMarkdownBtn { background-color: #f1c40f; }
-        #downloadDocxBtn { background-color: #e74c3c; }
-        #copyBtn:hover { background-color: #2980b9; }
-        #downloadImageBtn:hover { background-color: #27ae60; }
-        #downloadMarkdownBtn:hover { background-color: #d4ac0d; }
-        #downloadDocxBtn:hover { background-color: #c0392b; }
+        
+        #copyBtn { 
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        #downloadImageBtn { 
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        #downloadMarkdownBtn { 
+            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+        }
+        #downloadDocxBtn { 
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        details summary {
+            cursor: pointer;
+            color: #667eea;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        details summary:hover {
+            background-color: #f7fafc;
+        }
+        
+        details[open] summary {
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            line-height: 1.8;
+        }
+        
+        ul li {
+            color: #4a5568;
+        }
+        
+        .note-card {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f3 100%);
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .note-card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #2d3748;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .result-icon {
+                margin-bottom: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center my-4">Digital Approval Impact Calculator</h1>
-        <p class="text-center text-secondary">Calculate how digital approval and sealing impact your organization’s sustainability and costs.</p>
+        <h1 class="text-center my-4">🌍 Digital Approval Impact Calculator</h1>
+        <p class="text-center subtitle">Calculate how digital approval and sealing impact your organization’s sustainability and costs.</p>
         
         <!-- Methodology Section -->
-        <div class="result-card">
+        <div class="card-modern">
             <h5>📚 Methodology & Data Sources</h5>
             <details>
                 <summary style="cursor: pointer; color: #3498db; font-weight: bold;">Click to view calculation methodology and sources</summary>
@@ -105,15 +315,17 @@
         </div>
 
         <!-- Input Section -->
-        <div class="mb-3">
-            <label for="docVolume" class="form-label">Total Documents Produced Annually:</label>
-            <input type="number" class="form-control" id="docVolume" placeholder="Enter total document volume">
+        <div class="card-modern">
+            <div class="mb-3">
+                <label for="docVolume" class="form-label">📄 Total Documents Produced Annually:</label>
+                <input type="number" class="form-control" id="docVolume" placeholder="Enter total document volume">
+            </div>
+            <div class="mb-3">
+                <label for="signedDocs" class="form-label">✍️ Documents Needing Signature and Seal:</label>
+                <input type="number" class="form-control" id="signedDocs" placeholder="Enter number of signed/sealed documents">
+            </div>
+            <button class="btn btn-calculate w-100" onclick="calculateImpact()">🚀 Calculate Impact</button>
         </div>
-        <div class="mb-3">
-            <label for="signedDocs" class="form-label">Documents Needing Signature and Seal:</label>
-            <input type="number" class="form-control" id="signedDocs" placeholder="Enter number of signed/sealed documents">
-        </div>
-        <button class="btn btn-success w-100" onclick="calculateImpact()">Calculate Impact</button>
 
         <!-- Results Section -->
         <div id="results" class="mt-5"></div>
@@ -170,49 +382,53 @@ These are estimates based on industry averages. Actual impacts may vary.
             // Display Results
             const resultsDiv = document.getElementById("results");
             resultsDiv.innerHTML = `
-                <h3>Our Contribution to Sustainability</h3>
-                <div class="row text-center">
-                    <div class="col-md-2 result-icon">
-                        <img src="https://via.placeholder.com/80/3498db/ffffff?text=CO2" alt="CO2 Saved">
-                        <h4>${carbonSaved.toFixed(2)} kg</h4>
-                        <p>Carbon Saved</p>
+                <div class="card-modern fade-in-up">
+                    <h3>🌱 Our Contribution to Sustainability</h3>
+                    <div class="row text-center">
+                        <div class="col-md-2 result-icon">
+                            <img src="https://via.placeholder.com/80/3498db/ffffff?text=CO2" alt="CO2 Saved">
+                            <h4>${carbonSaved.toFixed(2)} kg</h4>
+                            <p>Carbon Saved</p>
+                        </div>
+                        <div class="col-md-2 result-icon">
+                            <img src="https://via.placeholder.com/80/2ecc71/ffffff?text=Tree" alt="Trees Saved">
+                            <h4>${treesSaved.toFixed(2)}</h4>
+                            <p>Trees Saved</p>
+                        </div>
+                        <div class="col-md-2 result-icon">
+                            <img src="https://via.placeholder.com/80/f1c40f/ffffff?text=Water" alt="Water Saved">
+                            <h4>${waterSaved.toFixed(0)} L</h4>
+                            <p>Water Saved</p>
+                        </div>
+                        <div class="col-md-2 result-icon">
+                            <img src="https://via.placeholder.com/80/f39c12/ffffff?text=Energy" alt="Energy Saved">
+                            <h4>${energySaved.toFixed(2)} kWh</h4>
+                            <p>Energy Saved</p>
+                        </div>
+                        <div class="col-md-2 result-icon">
+                            <img src="https://via.placeholder.com/80/e74c3c/ffffff?text=$" alt="Cost Savings">
+                            <h4>$${totalSavings.toFixed(2)}</h4>
+                            <p>Cost Savings</p>
+                        </div>
                     </div>
-                    <div class="col-md-2 result-icon">
-                        <img src="https://via.placeholder.com/80/2ecc71/ffffff?text=Tree" alt="Trees Saved">
-                        <h4>${treesSaved.toFixed(2)}</h4>
-                        <p>Trees Saved</p>
+                    <div class="action-buttons">
+                        <button id="copyBtn" class="btn-action" onclick="copyResults()">📋 Copy Results</button>
+                        <button id="downloadImageBtn" class="btn-action" onclick="downloadAsImage()">🖼️ Download Image</button>
+                        <button id="downloadMarkdownBtn" class="btn-action" onclick="downloadAsMarkdown()">📝 Download MD</button>
+                        <button id="downloadDocxBtn" class="btn-action" onclick="downloadAsDocx()">📄 Download Word</button>
                     </div>
-                    <div class="col-md-2 result-icon">
-                        <img src="https://via.placeholder.com/80/f1c40f/ffffff?text=Water" alt="Water Saved">
-                        <h4>${waterSaved.toFixed(0)} L</h4>
-                        <p>Water Saved</p>
+                    <div class="result-card mt-4">
+                        <h4>📊 SDG Contributions</h4>
+                        <ul>
+                            <li><strong>SDG 6 (Clean Water):</strong> ${waterSaved.toFixed(0)} liters of water conserved.</li>
+                            <li><strong>SDG 7 (Clean Energy):</strong> Saved ${energySaved.toFixed(2)} kWh of energy.</li>
+                            <li><strong>SDG 13 (Climate Action):</strong> Avoided ${carbonSaved.toFixed(2)} kg of CO₂ emissions.</li>
+                            <li><strong>SDG 15 (Life on Land):</strong> Preserved ${treesSaved.toFixed(2)} trees.</li>
+                        </ul>
                     </div>
-                    <div class="col-md-2 result-icon">
-                        <img src="https://via.placeholder.com/80/f39c12/ffffff?text=Energy" alt="Energy Saved">
-                        <h4>${energySaved.toFixed(2)} kWh</h4>
-                        <p>Energy Saved</p>
+                    <div class="note-card mt-3">
+                        <p><strong>💡 Note:</strong> These calculations are based on industry research from Environmental Paper Network, WWF, EPA Energy Star, and Conservatree.org. Values are estimates based on industry averages and may vary depending on actual paper type, manufacturing processes, and regional differences.</p>
                     </div>
-                    <div class="col-md-2 result-icon">
-                        <img src="https://via.placeholder.com/80/e74c3c/ffffff?text=$" alt="Cost Savings">
-                        <h4>$${totalSavings.toFixed(2)}</h4>
-                        <p>Cost Savings</p>
-                    </div>
-                </div>
-                <button id="copyBtn" onclick="copyResults()">Copy Results</button>
-                <button id="downloadImageBtn" onclick="downloadAsImage()">Download as Image</button>
-                <button id="downloadMarkdownBtn" onclick="downloadAsMarkdown()">Download as Markdown</button>
-                <button id="downloadDocxBtn" onclick="downloadAsDocx()">Download as Word</button>
-                <div class="result-card mt-4">
-                    <h4>SDG Contributions</h4>
-                    <ul>
-                        <li><strong>SDG 6 (Clean Water):</strong> ${waterSaved.toFixed(0)} liters of water conserved.</li>
-                        <li><strong>SDG 7 (Clean Energy):</strong> Saved ${energySaved.toFixed(2)} kWh of energy.</li>
-                        <li><strong>SDG 13 (Climate Action):</strong> Avoided ${carbonSaved.toFixed(2)} kg of CO₂ emissions.</li>
-                        <li><strong>SDG 15 (Life on Land):</strong> Preserved ${treesSaved.toFixed(2)} trees.</li>
-                    </ul>
-                </div>
-                <div class="result-card mt-2" style="background-color: #e8f4f8; border-left: 4px solid #3498db;">
-                    <p style="margin: 0; font-size: 0.9em;"><strong>Note:</strong> These calculations are based on industry research from Environmental Paper Network, WWF, EPA Energy Star, and Conservatree.org. Values are estimates based on industry averages and may vary depending on actual paper type, manufacturing processes, and regional differences.</p>
                 </div>
             `;
 
